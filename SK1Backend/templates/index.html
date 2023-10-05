@@ -4,23 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>student score</title>
+    <style>
+        table, th,td {
+            border: 1px solid black;
+            border-collapse: collapse;           
+            padding-left: 50px;
+            padding-right: 50px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Daftar Nilai Siswa</h1>
-    
-        {% for student in students %}
-            
-        <h1>{{ student['name'] }}</h1><br>
-        {% if student['score'] > 90 %}
+    <table>
+    <tr>
+        <td>Name</td>
+        <td>Score</td>
+        <td>status</td>
+    </tr>  
+       {% for student in students %}
+           
+        <tr>
+            <td>{{ student['name'] }}</td>
+            <td>{{student['score']}}</td>
+            <td>
+                {% if student['score'] > 90 %}
             Congratulations
-        {% elif student['score'] >= 76 %}
+            {% elif student['score'] >= 76 %}
             Very good
-        {% else %}
+            {% else %}
             Maaf, Anda belum lulus
-        {% endif %}
-            
-        {% endfor %}
-    
+            {% endif %}            
+             {% endfor %}
 
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
