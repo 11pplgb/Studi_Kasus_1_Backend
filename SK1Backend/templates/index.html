@@ -25,6 +25,7 @@
     <tr>
         <td>Name</td>
         <td>Score</td>
+        <td>Edit</td>
         
     </tr>  
        {% for score in score %}
@@ -32,6 +33,9 @@
         <tr>
             <td>{{ score.name}}</td>
             <td>{{score.score}}</td>
+            <td>
+                <a href="/edit/{{score['id']}}">Edit Score</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
