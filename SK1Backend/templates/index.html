@@ -15,29 +15,25 @@
     </style>
 </head>
 <body>
+    <form action="/" method="POST">
+
+        <input name="name" placeholder="Name" type="text">
+        <input name="score" placeholder="Score" type="number">
+        <input type="submit" value="Add Score">
+    </form>
     <table>
     <tr>
         <td>Name</td>
         <td>Score</td>
-        <td>status</td>
+        
     </tr>  
-       {% for student in students %}
+       {% for score in score %}
            
         <tr>
-            <td>{{ student['name'] }}</td>
-            <td>{{student['score']}}</td>
-            <td>
-                {% if student['score'] > 90 %}
-            Congratulations
-            {% elif student['score'] >= 76 %}
-            Very good
-            {% else %}
-            Maaf, Anda belum lulus
-            {% endif %}            
-             {% endfor %}
-
-            </td>
+            <td>{{ score.name}}</td>
+            <td>{{score.score}}</td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
