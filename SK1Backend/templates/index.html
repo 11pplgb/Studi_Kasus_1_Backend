@@ -25,7 +25,7 @@
     <tr>
         <td>Name</td>
         <td>Score</td>
-        <td>Edit</td>
+        <td>Perubahan</td>
         
     </tr>  
        {% for score in score %}
@@ -34,10 +34,12 @@
             <td>{{ score.name}}</td>
             <td>{{score.score}}</td>
             <td>
-                <a href="/edit/{{score['id']}}">Edit Score</a>
+                <a href="/edit/{{score['id']}}">Edit</a>
+                <a href="/delete/{{score['id']}}" onclick="return confirm ('Apakah Anda Yakin Akan Menghapus?');">Delete</a>
             </td>
         </tr>
         {% endfor %}
     </table>
+    
 </body>
 </html>
