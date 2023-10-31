@@ -1,9 +1,14 @@
 from cs50 import SQL
+import os
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask_session import Session
+from werkzeug.security import check_password_hash,generate_password_hash
+
 
 app = Flask(__name__)
 
 db = SQL("sqlite:///score.db")
+app.config.update(SECRET_KEY=os.urandom(24))
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -37,3 +42,41 @@ def edit_data(id):
 def delete(id):
     db.execute("DELETE from score where id = ?",id)
     return redirect("/")    
+
+  
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+   session.clear()
+   """Register user"""
+   if request.method == "POST":
+      if not request.form.get("username"): 
+         return "must provide "
+      elif not request.form.get("password"):
+         return "must provide password"
+      rows = db.execute("SELECT * FROM account WHERE username = ?", request.form.get("username"))
+
+      email = request.form.get("email")
+      name = request.form.get("name")
+      username = request.form.get("username")
+      password = request.form.get("password")
+      password_repeat = request.form.get("confirmation")
+
+      hash = generate_password_hash(password)
+      hasss = generate_password_hash(password_repeat)
+      if len(rows) == 1:
+         return "username alredy taken"
+      if password == password_repeat:
+      
+         db.execute("INSERT INTO account (email,name,username,password,password_repeat) VALUES(?,?,?,?,?)",email,name,username,hash,hasss)
+
+         registered_user = db.execute("select * from account where username = ?",username)
+         session["user_id"] = registered_user[0]["id"]
+         flash('You were successfully registered')
+         return redirect("/register")
+      else:
+         return "must provide matching password"
+   else:
+      return render_template("register.html")  
+
+      
